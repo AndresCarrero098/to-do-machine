@@ -41,6 +41,20 @@ function App() {
     });
   }
 
+  const completeTodo = (text) => {
+    const todoIndex = todos.findIndex((todo) => todo.text === text);
+    const updatedTodos = [...todos];
+    updatedTodos[todoIndex].completed = true;
+    setTodos(updatedTodos);
+  };
+
+  const deleteTodo = (text) => {
+    const todoIndex = todos.findIndex((todo) => todo.text === text);
+    const updatedTodos = [...todos];
+    updatedTodos.splice(todoIndex, 1);
+    setTodos(updatedTodos);
+  };
+
   return (
     <React.Fragment>
       <TodoCounter total={totalTodos} completed={completedTodos} />
@@ -52,6 +66,8 @@ function App() {
             key={todo.text}
             text={todo.text}
             completed={todo.completed}
+            onComplete={() => completeTodo(todo.text)}
+            onDelete={() => deleteTodo(todo.text)}
           />
         ))}
       </TodoList>
